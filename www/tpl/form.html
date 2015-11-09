@@ -1,0 +1,199 @@
+<style>
+     .btn-courner{
+          bottom: 10px;
+          position: fixed;
+          right: 10px;
+          z-index: 21;
+      }
+      
+      .btn-courner-2{
+          bottom: 10px;
+          position: fixed;
+          right: 80px;
+          z-index: 21;
+      }
+      
+      .rotate-right {
+            -ms-transform: rotate(90deg) !important;
+            -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+            transform: rotate(90deg);
+        }
+</style>
+
+<md-button class="md-fab md-raised btn-courner-2" style="display:none;" aria-label="ir arriba" ng-scroll-up> 
+    <md-tooltip md-direction="left">Ir Arriba</md-tooltip>
+    <div class="rotate-right">
+        <i class="icon-left-open"></i>
+    </div>
+</md-button>
+
+<md-button class="md-fab md-primary btn-courner" aria-label="volver" ng-click="back()" ng-scroll> 
+    <md-tooltip md-direction="top">Volver</md-tooltip>    
+    <i class="icon-reply"></i>    
+</md-button>
+
+<div style="height:100%;" layout="row" layout-sm="column" layout-align="start">  
+    
+    <div flex hide-gt-sm style="padding: 20px 20px 20px 20px;">
+        <h3>Pacientes</h3>
+        <p style="text-align: justify;"><small>En este modulo se puede registrar un nuevo paciente con el fin de alimentar la base de datos desde dispositivos moviles,
+            tambien permite la actualizacion de datos de pacientes. </small></p>      
+    </div>  
+    
+    <md-card class="md-padding" flex>
+        <form method="post" name="Form" ng-submit="Form.$valid && submitForm($event)">
+          
+          <md-card-content>
+              
+                <h3 style="align:center;"> 
+                    <md-button class="md-fab md-success" type="button" aria-label="ir arriba"> 
+                        <i class="icon-user-1"></i>                        
+                    </md-button>
+                  {{ label }} Paciente</h3>
+                
+                 <md-content>
+                    <md-list>
+                      <md-subheader class="md-no-sticky">Información Personal</md-subheader>
+                      <md-list-item class="md-2-line">
+                     
+                        <div class="md-list-item-text">
+                            
+                             <md-content>                                    
+                                <md-datepicker ng-model="model.BirthFecha" md-placeholder="Fecha Nacimiento" required>
+
+                                </md-datepicker>
+                            </md-content>
+                          
+                            <md-input-container flex>
+        			             <label>Nombres</label>
+        			             <input ng-model="model.Name" name="Name" required>
+                                 <div class="errors" ng-messages="Form.Name.$error">
+                                     <div ng-message="required">Campo requerido</div>
+                                 </div>
+		        			</md-input-container>
+                          
+                            <md-input-container flex>
+				                <label>Apellidos</label>
+				                <input ng-model="model.LastName" name="LastName" required>
+                                <div class="errors" ng-messages="Form.LastName.$error">
+                                    <div ng-message="required">Campo requerido</div>
+                                </div>
+		        			</md-input-container>
+                          
+                            <md-input-container flex>
+                                <label>Cedula</label>
+                                <input type="number" min="100" name="Nit" ng-model="model.Nit" required>
+                                <div class="errors" ng-messages="Form.Nit.$error">
+                                    <div ng-message="required">Campo requerido</div>
+                                    <div ng-message="min">Escriba un valor mayor a 99</div>
+                                </div>
+        			        </md-input-container>
+                          
+                            <md-input-container flex>
+            	               <label>Correo Electronico</label>
+                               <input type="email" name="Email" ng-model="model.Email">                            
+		        			</md-input-container>
+                          
+                            <md-input-container flex>
+    				            <label>Telefono</label>
+    				            <input type="number" min="1000000" name="Contact" ng-model="model.Contact">
+                                <div class="errors" ng-messages="Form.Contact.$error">                                   
+                                    <div ng-message="min">Digite un numero mayor a 6 digitos</div>
+                                </div>
+	        			    </md-input-container>
+                          
+                            <md-input-container flex>
+				                <label>Celular</label>
+				                <input type="number" min="100000000" name="PhoneNumber" ng-model="model.PhoneNumber" required>
+                                <div class="errors" ng-messages="Form.PhoneNumber.$error">
+                                    <div ng-message="required">Campo requerido</div>
+                                    <div ng-message="min">Digite un numero mayor a 9 digitos</div>
+                                </div>
+                            </md-input-container>
+                          
+                            <md-input-container flex>
+					            <label>RH</label>
+					            <input ng-model="model.RH" name="RH" required>
+                                <div class="errors" ng-messages="Form.RH.$error">
+                                    <div ng-message="required">Campo requerido</div>
+                                </div>
+		        			</md-input-container>
+                            
+                            <md-input-container flex>
+                                <label>Genero</label>
+                                <md-select ng-model="model.Gender" name="Gender" required>
+                                    <md-optgroup label="Genero">
+                                        <md-option></md-option>
+                                        <md-option value="F">Femenino</md-option>
+                                        <md-option value="M">Masculino</md-option>
+                                    </md-optgroup>                               
+                                </md-select>
+                                <div class="errors" ng-messages="Form.Gender.$error">
+                                    <div ng-message="required">Campo requerido</div>
+                                </div>
+                            </md-input-container>
+                          
+                        </div>     
+                        <div hide show-gt-md class="md-list-item-text"></div>  
+                       
+                    </md-list-item>			
+                      
+                    <md-divider ></md-divider>
+                    <md-subheader class="md-no-sticky">Informacion medica</md-subheader>
+                      
+                      <md-list-item class="md-2-line">     
+                            <div class="md-list-item-text">    
+                                
+                                <md-input-container flex>
+					               <label>Sistema de Salud</label>
+    					           <input ng-model="model.HealthCare" name="HealthCare">                                    
+	        			        </md-input-container>
+                                    
+                                <md-input-container flex>
+				                    <label>Enfermedades Importantes</label>
+				                    <textarea ng-model="model.ImportantIllness" name="ImportantIllness" columns="3" md-maxlength="500"></textarea>                                    
+	        			        </md-input-container>
+                              
+                                <md-input-container flex>
+				                    <label>Antecedentes Clinicos</label>
+				                    <textarea ng-model="model.MedicalHistory" name="MedicalHistory" columns="3" md-maxlength="500"></textarea>
+    		        			</md-input-container>
+                              
+                                <md-input-container flex>
+				                    <label>Medicamentos Permanentes</label>
+				                    <textarea ng-model="model.Medicines" name="Medicines" columns="3" md-maxlength="500"></textarea>
+    		        			</md-input-container>
+                                
+                                <md-input-container flex>
+				                    <label>Alergias</label>
+				                    <textarea ng-model="model.Allergy" name="Allergy" columns="3" md-maxlength="500"></textarea>
+    		        			</md-input-container>
+                                
+                            </div>     
+                          
+                      </md-list-item>                      
+                    
+                      
+                      <md-divider ></md-divider>                      
+                     
+                    </md-list>
+                  </md-content>
+                
+                
+           
+          </md-card-content>
+          <div class="md-actions" layout="row" layout-align="start center">              
+                <md-button type="submit" ng-disabled="Form.$invalid" class="md-raised md-accent">{{ label }}</md-button>
+          </div>              
+             
+        </form>
+      
+    </md-card>
+    
+    <div flex="40" hide-sm style="padding: 20px 20px 20px 20px;">
+        <h3>Pacientes</h3>
+        <small style="text-align: justify;">En este modulo se puede registrar un nuevo paciente con el fin de alimentar la base de datos desde dispositivos moviles,
+            tambien permite la actualizacion de datos de pacientes. </small>        
+    </div>
+    
+</div>

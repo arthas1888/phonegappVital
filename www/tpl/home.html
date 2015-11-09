@@ -1,0 +1,217 @@
+<style>
+    
+     md-input-container:not(.md-input-invalid) > md-icon.search {
+      color: green; }
+      
+     .btn-courner{
+          bottom: 10px;
+          position: fixed;
+          right: 10px;
+          z-index: 21;
+      }
+       .btn-courner-2{
+          bottom: 10px;
+          position: fixed;
+          right: 80px;
+          z-index: 21;
+      }
+       .rotate-right {
+            -ms-transform: rotate(90deg) !important;
+            -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+            transform: rotate(90deg);
+        }
+</style>
+<md-button class="md-fab md-raised btn-courner-2" style="display:none;" aria-label="ir arriba" ng-scroll-up> 
+    <md-tooltip md-direction="left">Ir Arriba</md-tooltip>
+    <div class="rotate-right">
+        <i class="icon-left-open"></i>
+    </div>
+</md-button>
+<md-button class="md-fab md-accent btn-courner" aria-label="nuevo paciente" id="btn_scroll" ng-click="newItem();" ng-scroll> 
+  <md-tooltip md-direction="left">Nuevo Paciente</md-tooltip>
+    <i class="icon-plus-1"></i>
+</md-button>
+
+<div style="height:100%;" layout="column" layout-align="start">
+    
+    <md-card class="md-padding" flex>
+        <form method="post" name="Form" ng-submit="Form.$valid && submitForm($event)">
+     
+          <md-card-content>
+              
+                <h2 style="align:center;">Bienvenido</h2>
+            
+                <small style="font-weight: 300;">Escribe el número de cédula o nombre de tu paciente</small>
+                <br />
+                <div layout="row">
+                    <md-icon class="search"><i class="icon-search" flex="5"></i></md-icon>
+                     <md-autocomplete ng-disabled="isDisabled" md-no-cache="noCache" md-selected-item="selectedItem" flex="95"
+                         md-search-text-change="searchTextChange(searchText)" md-search-text="searchText"
+                          md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)" 
+                          md-item-text="item.FullName" md-min-length="3" md-delay="1500" placeholder="Busca tu paciente">
+                        <md-item-template>
+                          <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.FullName}} ({{item.Nit}})</span>
+                        </md-item-template>
+                        <md-not-found>
+                          Ningun resultado encontrado para "{{searchText}}".
+                        </md-not-found>
+                      </md-autocomplete>
+                  </div>
+                   <br />
+                   <div ng-if="isNotUser"> 
+                     <small style="font-weight: 400;">El paciente con cedula N. {{ infoUser.cedula }} no fue encontrado en la base de datos.</small> 
+                     <md-button type="button" class="md-raised md-primary" ng-click="addPaciente();">Crear</md-button>
+                   </div>
+           
+          </md-card-content>
+          <div class="md-actions" layout="row" layout-align="end center">            
+            <md-button type="button" class="md-primary" ng-logout>Salir</md-button>
+            <md-button type="button" class="md-raised md-accent" ng-click="updateInfo()">Scanear</md-button>       
+          </div>
+        </form>       
+      
+    </md-card>
+    
+    
+    <md-card class="md-padding" ng-hide="paciente==null" flex>        
+          <md-card-content>
+              
+                <div layout="row">
+                  <h2 style="align:center;" flex>Información del Paciente</h2>
+                  
+                  <md-button class="md-icon-button md-primary" aria-label="Cerrar" flex="10" ng-click="closeCardInfo();">
+                    <i class="icon-cancel-circle"></i>
+                  </md-button>
+                </div>
+                
+                 <md-content>
+                    <md-list>
+                      <md-subheader class="md-no-sticky">Información Personal</md-subheader>
+                      <md-list-item class="md-2-line">
+                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.Name }} {{ paciente.LastName }}</h3>
+                          <p>Nombre</p>
+                        </div>   
+                        
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.Nit }}</h3>
+                          <p>Cedula</p>
+                        </div>                    
+                       
+                      </md-list-item>
+                      
+                      <md-list-item class="md-2-line">
+                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.Contact }}</h3>
+                          <p>Telefono</p>
+                        </div>         
+                        
+                         <div class="md-list-item-text">
+                          <h3>{{ paciente.PhoneNumber }}</h3>
+                          <p>Celular</p>
+                        </div>                 
+                       
+                      </md-list-item>
+                      
+                       <md-list-item class="md-2-line">
+                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.Email }}</h3>
+                          <p>Correo</p>
+                        </div>                    
+                       
+                      </md-list-item>
+                      
+                      <md-list-item class="md-2-line">
+                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.RH }}</h3>
+                          <p>RH</p>
+                        </div>   
+                        
+                        <div class="md-list-item-text" ng-switch="paciente.Gender">
+                          <h3 ng-switch-when="M">Masculino</h3>
+                          <h3 ng-switch-when="F">Femenino</h3>
+                          <p>Genero</p>
+                        </div>  
+                        
+                      </md-list-item>
+                      
+                      <md-list-item class="md-2-line">
+                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.BirthFecha| date:"MM/dd/yyyy" }}</h3>
+                          <p>Nacimiento</p>
+                        </div>   
+                        
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.birthYear }}</h3>
+                          <p>Edad</p>
+                        </div>  
+                        
+                      </md-list-item>
+                      
+                      <md-list-item class="md-2-line">
+                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.CreateDate | date:'medium' }}</h3>
+                          <p>Fecha de creacion</p>
+                        </div>                    
+                       
+                      </md-list-item>
+                      
+                      <md-divider ></md-divider>
+                      <md-subheader class="md-no-sticky">Informacion medica</md-subheader>
+                      
+                      <md-list-item class="md-2-line">                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.HealthCare }}</h3>
+                          <p>EPS</p>
+                        </div>
+                      </md-list-item>
+                      
+                      <md-list-item class="md-2-line">                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.Allergy }}</h3>
+                          <p>Alergias</p>
+                        </div>
+                      </md-list-item>
+                      
+                      <md-list-item class="md-2-line">                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.ImportantIllness }}</h3>
+                          <p>Enfermedades importantes</p>
+                        </div>
+                      </md-list-item>
+                      
+                      <md-list-item class="md-2-line">                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.MedicalHistory }}</h3>
+                          <p>Historia medica</p>
+                        </div>
+                      </md-list-item>
+                      
+                      <md-list-item class="md-2-line">                     
+                        <div class="md-list-item-text">
+                          <h3>{{ paciente.Medicines }}</h3>
+                          <p>Medicinas</p>
+                        </div>
+                      </md-list-item>
+                      
+                      <md-divider ></md-divider>                      
+                     
+                    </md-list>
+                  </md-content>
+                
+                
+           
+          </md-card-content>
+          <div class="md-actions" layout="row" layout-align="start center">
+            <md-button ng-click="editItem();" class="md-raised md-primary">Editar</md-button>
+          </div>
+      
+    </md-card>
+    
+</div>

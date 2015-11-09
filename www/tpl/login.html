@@ -1,0 +1,40 @@
+<style>
+    
+   
+    md-input-container:not(.md-input-invalid) > md-icon.email {
+      color: green; }
+    md-input-container:not(.md-input-invalid) > md-icon.password {
+      color: dodgerblue; }
+    md-input-container.md-input-invalid > md-icon.email, md-input-container.md-input-invalid > md-icon.password {
+  color: red; }
+</style>
+
+<div style="height:100%;" layout="row" layout-align="center center" >
+        <div flex-sm="10" flex-md="10" flex="30"></div>
+        <md-card class="md-padding" flex>
+         <form method="post" id="idLogin" name="Form" ng-submit="Form.$valid && submitForm($event)"
+            <md-card-content>
+                
+              <h2 style="align:center;">Logueate</h2>
+              <br>
+               
+               <md-input-container >
+                <!-- Use floating placeholder instead of label -->
+                <md-icon class="email"><i class="icon-mail-2"></i></md-icon>
+                <input ng-model="user.userName" type="email" placeholder="Correo *" name="userName" ng-required="true">
+              </md-input-container>  
+              
+              <md-input-container >
+                <!-- Use floating placeholder instead of label -->
+                <md-icon class="password"><i class="icon-key"></i></md-icon>
+                <input ng-model="user.password" type="password" placeholder="Contraseña *" name="password" ng-required="true">
+              </md-input-container>     
+             
+            </md-card-content>
+            <div class="md-actions" layout="row" layout-align="end center">
+              <md-button class="md-raised" ng-disabled="Form.$invalid" >Iniciar Sesion</md-button>
+            </div>
+          </form>
+        </md-card>
+        <div flex-sm="10" flex-md="10" flex="30"></div>
+</div>

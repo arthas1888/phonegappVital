@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/angular/angular-material.min.css" />
+        <link rel="stylesheet" type="text/css" href="fonts/roboto-font.css">
+        <link rel="stylesheet" type="text/css" href="icons/css/icons.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <title>Hello World</title>
+        
+    </head>
+    <body ng-app="App" ng-controller="IndexController">
+        
+        <div class="app" style="display:none;">
+            <h1>PhoneGap</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+        
+        <div id="initial_screen" class=initial></div>
+        
+        <section layout="row" layout-fill >
+          
+            <md-sidenav ng-hide="!authentication.isAuth" class="md-sidenav-left md-whiteframe-z4" md-component-id="left" tabindex="-1" style="position: fixed;">
+        
+                <md-toolbar class="md-theme-indigo" style="height:250px; min-height:250px;" ng-hide="!authentication.isAuth">
+                    <div layout="column" layout-align="center center">
+                        <h3 class="md-toolbar-tools">
+                            <md-button class="md-icon-button" ng-click="closeSide()" aria-label="closeSide">
+                               <i class="icon-menu"></i>
+                            </md-button>
+                        </h3>
+                        <img src="icon.png"/>
+                        <h3 class="md-toolbar-tools" style="padding-bottom:20px;" flex layout-align="center center" flex>
+                            <a ng-href="#/home"><h3>Plataforma Anamnesis</h3></a>
+                        </h3>
+                    </div>
+                </md-toolbar>
+        
+                <md-content flex role="navigation">
+                    <ul class="docs-menu" parent-section>                            
+                        <li class="parent-list-item">
+                            <md-button class="menu-nested-list" aria-label="parent" ng-logout>
+                                <h4 class="menu-heading md-subhead active">
+                                    Salir
+                                </h4>
+                            </md-button>
+                        </li>
+                        <md-divider></md-divider>            
+                    </ul>
+                </md-content>            
+        
+            </md-sidenav>
+            
+            <md-content flex layout="column" layout-fill>
+                
+                <md-toolbar ng-hide="!authentication.isAuth" style="position: fixed; z-index: 1000;">
+                  <div class="md-toolbar-tools">
+                    <md-button class="md-icon-button" aria-label="openSide" ng-click="openSide()">
+                        <i class="icon-menu"></i>
+                    </md-button>                        
+                    <h3>
+                      <span>Anamnesis</span>                         
+                    </h3>
+                    <span flex></span>
+                  
+                  </div>
+                </md-toolbar>
+                                    
+                <div layout="column" class="fondo" style="padding-top: 64px;" flex>      
+                               
+                    <div data-ng-view="" style="height:100%;"></div>                    
+                </div>
+                                                      
+            </md-content>
+            
+        </section>        
+        
+        <script type="text/javascript" src="cordova.js"></script>   
+                   
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-animate.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-aria.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-messages.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-material.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-touch.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-local-storage.min.js"></script>
+             
+       
+        <script type="text/javascript" src="js/usdl_keys.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        <script type="text/javascript" src="js/app.js"></script>   
+    </body>
+</html>
