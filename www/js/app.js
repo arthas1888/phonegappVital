@@ -41,13 +41,13 @@ appAngular.factory('authInterceptorService', ['$q', '$location', 'localStorageSe
 
 appAngular.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('cyan', {
+    .primaryPalette('red', {
       'default': '500', // by default use shade 400 from the pink palette for primary intentions
       
     })
     // If you specify less than all of the keys, it will inherit from the
     // default shades
-    .accentPalette('indigo');
+    .accentPalette('grey');
 });
 
 appAngular.config(function($routeProvider, $locationProvider, $httpProvider) {
@@ -292,8 +292,7 @@ appAngular.controller('NewPacienteController', ['$scope', 'authService', '$locat
             $scope.model.Nit = infoUser.cedula;
             $scope.model.RH = infoUser.rh;
             $scope.model.Gender = infoUser.sexo;
-            console.log(infoUser.nacimiento)
-            //$scope.model.BirthFecha = infoUser.nacimiento;    
+            $scope.model.BirthFecha = infoUser.nacimiento;    
         }
         
         getModel();
@@ -524,6 +523,9 @@ appAngular.controller('HomeController', ['$scope', 'authService', '$location', '
                             getData(values);
                             
                         }
+                        var nacimiento = ($scope.infoUser["nacimiento"]).toString();
+                        nacimiento = nacimiento.substring(0, 4) + "/" + nacimiento.substring(4, 6) + "/" + nacimiento.substring(6, 8);
+                        $scope.infoUser["nacimiento"] = new Date(nacimiento);
                         console.log($scope.infoUser);
                         consultarPaciente($scope.infoUser["cedula"]);
                         
