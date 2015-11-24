@@ -43,9 +43,9 @@
             
                 <small style="font-weight: 300;">Escribe el número de cédula o nombre de tu paciente</small>
                 <br />
-                <div layout="row">
-                    <md-icon class="search"><i class="icon-search" flex="5"></i></md-icon>
-                     <md-autocomplete ng-disabled="isDisabled" md-no-cache="noCache" md-selected-item="selectedItem" flex="95"
+                <div layout="row" layout-align="center center">
+                    <md-icon class="search" flex="10" layout="row" layout-align="center center"><i class="icon-search" ></i></md-icon>
+                     <md-autocomplete ng-disabled="isDisabled" md-no-cache="noCache" md-selected-item="selectedItem" flex
                          md-search-text-change="searchTextChange(searchText)" md-search-text="searchText"
                           md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)" 
                           md-item-text="item.FullName" md-min-length="3" md-delay="1500" placeholder="Busca tu paciente">
