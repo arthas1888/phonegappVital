@@ -168,13 +168,13 @@ appAngular.factory('authService', ['$http', '$q', '$mdDialog', 'localStorageServ
         var authData = localStorageService.get("authorizationData");
         
         if (authData) {
-            $http.post(serviceBase + 'api/Account/Logout').then(function () {
+            //$http.post(serviceBase + 'api/Account/Logout').then(function () {
                 localStorageService.remove('authorizationData');
                 localStorageService.remove('roleUser');
                 _authentication.isAuth = false;
                 _authentication.userName = "";
                 _authentication.role = "";
-            });
+            //});
         }
         $location.path('/login');
 
@@ -504,14 +504,23 @@ appAngular.controller('HomeController', ['$scope', 'authService', '$location', '
 
                         var raw = "";
                         if (typeof(recognizerResult.raw) != "undefined" && recognizerResult.raw != null) {
-                            raw = " (raw: " + hex2a(recognizerResult.raw) + ")";
+                            raw = hex2a(recognizerResult.raw);
                         }
-                        var values = [];                        
+                        var values = [];
                         
                         var result = recognizerResult.data.split(" ");
                         
                         if (result.length < 10){
-                            getDatos(result[0]);
+                            
+                            if (raw.indexOf("+") < raw.indexOf("-")){
+                                raw = raw.split("+");
+                                raw = raw[0].concat("+");
+                            }else{
+                                raw = raw.split("-");
+                                raw = raw[0].concat("-");
+                            }
+                            //console.log(raw);
+                            getDatos(raw);
                         }
                         else{
                             angular.forEach(result, function(value, key){
@@ -558,18 +567,19 @@ appAngular.controller('HomeController', ['$scope', 'authService', '$location', '
             $scope.isNotUser = true;
             //console.log(status);
         });
-    }
+    };
     
     $scope.closeCardInfo = function(){
         $scope.paciente = null;
-    }
+    };
    
     var getData = function(values){
-        $scope.infoUser["cedula"] = parseInt(values[2].substring(8, 18));
-        $scope.infoUser["apellido"] = values[2].substring(18, values[2].length) + " " + values[3];
+        partialNit =  values[2].replace(/\D/g, '');
+        $scope.infoUser["cedula"] = parseInt(partialNit.substring(partialNit.length - 10, partialNit.length));
+        $scope.infoUser["apellido"] = (values[2].replace(/[0-9]/g, '')).concat(" " + values[3]);
         
         if (values[5].match(/[0-9]/g) == null){
-            $scope.infoUser["nombre"] = values[4] + " " + values[5];
+            $scope.infoUser["nombre"] = values[4].concat(" " + values[5]);
             $scope.infoUser["sexo"] = values[6].substring(1, 2);
             $scope.infoUser["rh"] = values[6].substring(values[6].length-2, values[6].length);
             $scope.infoUser["nacimiento"] = parseInt(values[6].substring(2, 10));            
@@ -580,15 +590,15 @@ appAngular.controller('HomeController', ['$scope', 'authService', '$location', '
             $scope.infoUser["nacimiento"] = parseInt(values[5].substring(2, 10));
         }
         
-    }
+    };
     var index = 0;
     var subSrt = [];
     var partialNit = "";
     
     var getDatos = function(str){
-        
-        $scope.infoUser["apellido"] =  "";
+        $scope.infoUser["apellido"] = "";
         $scope.infoUser["nombre"] = "";
+
         if (str.indexOf("0M") != -1){
             
             subSrt = str.split("PubDSK_");

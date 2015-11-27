@@ -9,14 +9,19 @@
   color: red; }
 </style>
 
-<div style="height:100%;" layout="row" layout-align="center center" >
+<div style="height:100%;" layout="row" layout-align="center center">
         <div flex-sm="10" flex-md="10" flex="30"></div>
-        <md-card class="md-padding" flex>
-         <form method="post" id="idLogin" name="Form" ng-submit="Form.$valid && submitForm($event)"
+        <md-card class="md-padding" flex ng-hide="authentication.isAuth">
+         <form method="post" id="idLogin" name="Form" ng-submit="Form.$valid && submitForm($event)">
             <md-card-content>
-                
+
+              <!--
               <h2 style="align:center;">Logueate</h2>
               <br>
+              -->
+                <div layout="row" layout-align="center center">
+                    <div class="logo-vital"></div>
+                </div>
                
                <md-input-container >
                 <!-- Use floating placeholder instead of label -->

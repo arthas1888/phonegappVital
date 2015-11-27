@@ -49,9 +49,9 @@
         
         <section layout="row" layout-fill >
           
-            <md-sidenav ng-hide="!authentication.isAuth" class="md-sidenav-left md-whiteframe-z4" md-component-id="left" tabindex="-1" style="position: fixed;">
+            <md-sidenav ng-if="authentication.isAuth" ng-cloak class="md-sidenav-left md-whiteframe-z4" md-component-id="left" tabindex="-1" style="position: fixed;">
         
-                <md-toolbar class="md-theme-indigo" style="height:250px; min-height:250px;" ng-hide="!authentication.isAuth">
+                <md-toolbar class="md-theme-indigo" style="height:250px; min-height:250px;" ng-if="authentication.isAuth">
                     <div layout="column" layout-align="center center">
                         <h3 class="md-toolbar-tools">
                             <md-button class="md-icon-button" ng-click="closeSide()" aria-label="closeSide">
@@ -69,7 +69,7 @@
                 <md-content flex role="navigation">
                     <ul class="docs-menu" parent-section>                            
                         <li class="parent-list-item">
-                            <md-button class="menu-nested-list" aria-label="parent" ng-logout>
+                            <md-button class="menu-nested-list" aria-label="parent" ng-logout ng-click="closeSide()">
                                 <h4 class="menu-heading md-subhead active">
                                     Salir
                                 </h4>
@@ -83,7 +83,7 @@
             
             <md-content flex layout="column" layout-fill>
                 
-                <md-toolbar ng-hide="!authentication.isAuth" style="position: fixed; z-index: 1000;">
+                <md-toolbar ng-if="authentication.isAuth" style="position: fixed; z-index: 1000;" ng-cloak>
                   <div class="md-toolbar-tools">
                     <md-button class="md-icon-button" aria-label="openSide" ng-click="openSide()">
                         <i class="icon-menu"></i>
@@ -96,7 +96,7 @@
                   </div>
                 </md-toolbar>
                                     
-                <div layout="column" class="fondo" style="padding-top: 64px;" flex>      
+                <div layout="column" class="fondo" ng-class="{'height-full': !authentication.isAuth}" style="padding-top: 64px;" flex>      
                                
                     <div data-ng-view="" style="height:100%;"></div>                    
                 </div>
