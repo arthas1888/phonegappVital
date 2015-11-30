@@ -243,7 +243,9 @@ appAngular.controller('IndexController', ['$scope', '$timeout', '$mdSidenav', '$
   function($scope, $timeout, $mdSidenav, $mdUtil, authService){   
     
     $scope.closeSide = function () {
-      $mdSidenav('left').toggle();
+        $mdSidenav('left').toggle();
+        var backdrop = angular.element( document.querySelector( 'md-backdrop' ) );
+        backdrop.css({"display": "none"}); 
     };
     
     $scope.openSide = function () {
