@@ -32,26 +32,30 @@
         <link rel="stylesheet" type="text/css" href="fonts/roboto-font.css">
         <link rel="stylesheet" type="text/css" href="icons/css/icons.css" />
         <link rel="stylesheet" type="text/css" href="css/main.css" />
-        <title>Hello World</title>
+        <title>Anamnesis</title>
         
     </head>
     <body ng-app="App" ng-controller="IndexController">
         
         <div class="app" style="display:none;">
-            <h1>PhoneGap</h1>
+            <h1>Anamnesis</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
         </div>
         
-        <div id="initial_screen" class="initial"></div>
+        <div id="initial_screen" class="initial">
+            <!--
+            <img src="img/VERTICAL-WEB.png" class="center-img" width="200">
+            -->
+        </div>
         
         <section layout="row" layout-fill >
           
             <md-sidenav ng-if="authentication.isAuth" ng-cloak class="md-sidenav-left md-whiteframe-z4" md-component-id="left" tabindex="-1" style="position: fixed;">
         
-                <md-toolbar class="md-theme-indigo" style="height:250px; min-height:250px;" ng-if="authentication.isAuth">
+                <md-toolbar class="md-theme-indigo" style="height:250px; min-height:250px;background-color: white;" ng-if="authentication.isAuth">
                     <div layout="column" layout-align="center center">
                         <h3 class="md-toolbar-tools">
                             <md-button class="md-icon-button" ng-click="closeSide()" aria-label="closeSide">
@@ -59,7 +63,7 @@
                             </md-button>
                         </h3>
                         <br>
-                        <img src="img/logo-vital-blanco.png" width="128"/>
+                        <img src="img/VERTICAL-WEB.png" width="128"/>
                         <!--<h3 class="md-toolbar-tools" style="padding-bottom:20px;" flex layout-align="center center" flex>
                             <a ng-href="#/home"><h3>Plataforma Anamnesis</h3></a>
                         </h3>-->
@@ -85,11 +89,13 @@
                 
                 <md-toolbar ng-if="authentication.isAuth" style="position: fixed; z-index: 1000;" ng-cloak>
                   <div class="md-toolbar-tools">
+                      <!--
                     <md-button class="md-icon-button" aria-label="openSide" ng-click="openSide()">
                         <i class="icon-menu"></i>
-                    </md-button>                        
+                    </md-button>     
+                    -->                   
                     <h3>
-                      <span>VitalApp</span>                         
+                      <span>Anamnesis</span>                         
                     </h3>
                     <span flex></span>
                   

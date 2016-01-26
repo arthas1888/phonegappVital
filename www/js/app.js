@@ -41,8 +41,8 @@ appAngular.factory('authInterceptorService', ['$q', '$location', 'localStorageSe
 
 appAngular.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
-    .primaryPalette('red', {
-      'default': '500', // by default use shade 400 from the pink palette for primary intentions
+    .primaryPalette('purple', {
+      'default': '800' // by default use shade 400 from the pink palette for primary intentions
       
     })
     // If you specify less than all of the keys, it will inherit from the
@@ -466,10 +466,12 @@ appAngular.controller('HomeController', ['$scope', 'authService', '$location', '
     // Note that each platform requires its own license key
 
     // This license key allows setting overlay views for this application ID: mobi.pdf417.demo
-    var licenseiOs = "XE3DN5MH-6BYS3TA7-HAUQHBDD-NRKVH4DV-WPDPF4NF-6PAUBFXW-IYVZBUX7-CXNQ4P7Z";
-
+    var licenseiOs = "Q252UJIK-7CR56FVB-CSSC3LEQ-X6HPIDOO-7LD5XYLT-6YPYNA4H-CSWJBP4O-6QGZ72F5";
+    
+    var licenseAndroid = "APVNKOU2-K6BXB62F-YUKOA7E2-KOFNJQ2V-MPVLWFYD-HDYU3OHT-A7D5ZPKN-XDZVNYJ6";
+    
     // This license is only valid for package name "mobi.pdf417.demo"
-    var licenseAndroid = "UDPICR2T-RA2LGTSD-YTEONPSJ-LE4WWOWC-5ICAIBAE-AQCAIBAE-AQCAIBAE-AQCFKMFM";
+    //var licenseAndroid = "Y5AR6RJ4-PPA6ZDJ6-ABLKN4DE-XZEVSOLL-HLBOUBAE-AQCAIBAE-AQCAIBAE-AQCFKMFM";
     
     var hex2a = function(hex) {
         var str = '';
@@ -482,11 +484,11 @@ appAngular.controller('HomeController', ['$scope', 'authService', '$location', '
     $scope.updateInfo = function(){
         
         $scope.paciente = null;
-        
         cordova.plugins.pdf417Scanner.scan(
-        
-            // Register the callback handler
+            
+           		// Register the callback handler
             function callback(scanningResult) {
+                
                 $scope.infoUser = {};
                 // handle cancelled scanning
                 if (scanningResult.cancelled == true) {
@@ -496,9 +498,10 @@ appAngular.controller('HomeController', ['$scope', 'authService', '$location', '
                 
                 // Obtain list of recognizer results
                 var resultList = scanningResult.resultList;
+                
                 // Iterate through all results
                 for (var i = 0; i < resultList.length; i++) {
-                    
+
                     // Get individual resilt
                     var recognizerResult = resultList[i];
                     if (recognizerResult.resultType == "Barcode result") {
@@ -539,7 +542,34 @@ appAngular.controller('HomeController', ['$scope', 'authService', '$location', '
                         $scope.infoUser["nacimiento"] = new Date(nacimiento);
                         console.log($scope.infoUser);
                         consultarPaciente($scope.infoUser["cedula"]);
-                        
+
+                    } else if (recognizerResult.resultType == "USDL result") {
+                        // handle USDL parsing result
+
+                        var fields = recognizerResult.fields;
+
+                        console.log( /** Personal information */
+                                            "USDL version: " + fields[kPPStandardVersionNumber] + "; " +
+                                            "Family name: " + fields[kPPCustomerFamilyName] + "; " +
+                                            "First name: " + fields[kPPCustomerFirstName] + "; " +
+                                            "Date of birth: " + fields[kPPDateOfBirth] + "; " +
+                                            "Sex: " + fields[kPPSex] + "; " +
+                                            "Eye color: " + fields[kPPEyeColor] + "; " +
+                                            "Height: " + fields[kPPHeight] + "; " +
+                                            "Street: " + fields[kPPAddressStreet] + "; " +
+                                            "City: " + fields[kPPAddressCity] + "; " +
+                                            "Jurisdiction: " + fields[kPPAddressJurisdictionCode] + "; " +
+                                            "Postal code: " + fields[kPPAddressPostalCode] + "; " +
+
+                                            /** License information */
+                                            "Issue date: " + fields[kPPDocumentIssueDate] + "; " +
+                                            "Expiration date: " + fields[kPPDocumentExpirationDate] + "; " +
+                                            "Issuer ID: " + fields[kPPIssuerIdentificationNumber] + "; " +
+                                            "Jurisdiction version: " + fields[kPPJurisdictionVersionNumber] + "; " +
+                                            "Vehicle class: " + fields[kPPJurisdictionVehicleClass] + "; " +
+                                            "Restrictions: " + fields[kPPJurisdictionRestrictionCodes] + "; " +
+                                            "Endorsments: " + fields[kPPJurisdictionEndorsementCodes] + "; " +
+                                            "Customer ID: " + fields[kPPCustomerIdNumber] + "; ");
                     }
                 }
             },
