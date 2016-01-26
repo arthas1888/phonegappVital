@@ -93,7 +93,7 @@ appAngular.config(function($routeProvider, $locationProvider, $httpProvider) {
 appAngular.factory('authService', ['$http', '$q', '$mdDialog', 'localStorageService', '$location',
     function ($http, $q, $mdDialog, localStorageService, $location) {
 
-    var serviceBase = 'http://administracion.os-position.com:8040/';
+    var serviceBase = 'http://api.anamnesiscolombia.com:8040/';
     
     var authServiceFactory = {};
 
