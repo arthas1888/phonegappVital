@@ -24,7 +24,7 @@
 .logo-vital{
     width: 200px;
     height: 200px;
-    z-index: 100;
+    
     background:url(../img/VERTICAL-WEB.png); /* 170px x 200px */
     background-size: contain;
     background-repeat: no-repeat; 
